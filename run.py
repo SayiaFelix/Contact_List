@@ -39,6 +39,16 @@ def display_contacts():
     return Contact.display_contacts()
 
 
+def copy_email(number):
+  '''
+  Function that copies the email to the clipboard.
+  '''
+
+  return Contact.copy_email(number)
+
+
+
+
 def main():
     print("Hello Welcome to your contact list. What is your name?")
 
@@ -48,7 +58,7 @@ def main():
     print('\n')
 
     while True:
-                    print("Use these short codes : cc - create a new contact, dc - display contacts, fc -find a contact, ddc -delete contact, ex -exit the contact list ")
+                    print("Use these short codes : cc - create a new contact, dc - display contacts, fc -find a contact, ddc -delete contact, ce - copy email, ex -exit the contact list ")
 
                     short_code = input().lower()
 
@@ -105,11 +115,25 @@ def main():
                                     print("That contact does not exist")
 
                     elif short_code== 'ddc':
-                            if del_contact(contact):
-                                    for contact in del_contact():
-                                            print(f"Contact deleted....")
+                            if del_contact(search_contact):
+                                      print(f"You have successfully removed {search_contact.first_name} {search_contact.last_name} from your contact list.")
+                                      print("\n")
+                                    
                             else:
-                                    print("No contact")
+                                      print("That contact does not exist")
+
+                    elif short_code == 'ce':
+                        print("Enter the number whose email you want to copy")
+                        copy_number = input()
+                        if check_existing_contacts(copy_number):
+                                search_contact = find_contact(copy_number)
+                                print("in the run.py", search_contact.email)
+                                print("in the run.py", search_contact.phone_number)
+                                copy_email(search_contact.phone_number)
+                                print(f"Email address - {search_contact.email} copied to clipboard")
+                        else:
+                                print("That contact doesn't exist")
+
 
                     elif short_code == "ex":
                             print("Bye .......")
